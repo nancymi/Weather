@@ -1,11 +1,13 @@
 package nanchen.weather.forecast
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Toast
 import nanchen.weather.R
+import nanchen.weather.data.Person
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +26,22 @@ class MainActivity : AppCompatActivity() {
                   tag: String = javaClass.getSimpleName(),
                   length: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(this, "[$tag] $message", length).show()
+    }
+
+    fun defineVariable() {
+        val s = "Example"
+        val i = 23
+        val actionBar = supportActionBar
+
+        val a: Any = 23
+        val c: Context = baseContext
+    }
+
+    fun defineAttribute() {
+        val person = Person()
+        person.nickName = "nickName"
+        val nickName = person.nickName
+
     }
 }
 
