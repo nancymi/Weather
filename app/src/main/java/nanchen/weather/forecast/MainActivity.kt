@@ -9,7 +9,9 @@ import android.widget.TextView
 import android.widget.Toast
 import nanchen.weather.R
 import nanchen.weather.data.Person
+import nanchen.weather.data.remote.Request
 import org.jetbrains.anko.find
+import org.jetbrains.anko.longToast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +44,13 @@ class MainActivity : AppCompatActivity() {
         person.nickName = "nickName"
         val nickName = person.nickName
 
+    }
+
+    fun async(url: String) {
+        Request(url).run()
+        runOnUiThread {
+            longToast("Request performed")
+        }
     }
 }
 
