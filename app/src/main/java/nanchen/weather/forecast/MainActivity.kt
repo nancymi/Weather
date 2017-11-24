@@ -8,14 +8,17 @@ import android.support.v7.widget.RecyclerView
 import android.widget.Toast
 import nanchen.weather.R
 import nanchen.weather.data.Person
+import nanchen.weather.domain.RequestForecastCommand
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val forecastList = findViewById<RecyclerView>(R.id.forecast_list)
         forecastList.layoutManager = LinearLayoutManager(this)
         forecastList.adapter = ForecastListAdapter(items)
+        async(forecastList)
     }
 
     fun toast(message: String, length: Int = Toast.LENGTH_SHORT) {
@@ -42,6 +45,13 @@ class MainActivity : AppCompatActivity() {
         person.nickName = "nickName"
         val nickName = person.nickName
 
+    }
+
+    fun async(forecastList: RecyclerView) {
+        val result = RequestForecastCommand("94043").execute();
+        runOnUiThread {
+            forecastList.adapter = ForecastListAdapter(result)
+        }
     }
 }
 
