@@ -6,3 +6,9 @@ Repo address: [Kotlin-for-Android_Developers](https://github.com/antoniolg/Kotli
 *Kotlin Chinese BBS: [Kotliner.cn](https://kotliner.cn)*
 
 **一切kotlin函数都会返回一个值**
+
+# Anko
+
+Anko 的主要目的是用来替代以前 XML 的方式来使用代码生成 UI 布局。
+
+*重点* 扩展函数
