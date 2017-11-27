@@ -59,11 +59,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateUI(weekForecast: ForecastList, forecastListView: RecyclerView) {
-        val adapter = ForecastListAdapter(weekForecast, object : ForecastListAdapter.OnItemClickListener {
-            override fun invoke(forecast: Forecast) {
-                toast(forecast.date)
-            }
-        })
+        val adapter = ForecastListAdapter(weekForecast) {
+            toast(it.date)
+        }
         forecastListView.adapter = adapter
     }
 }
