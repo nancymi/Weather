@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import nanchen.weather.R
 import nanchen.weather.data.Person
+import nanchen.weather.domain.Forecast
 import nanchen.weather.domain.RequestForecastCommand
 
 class MainActivity : AppCompatActivity() {
@@ -50,17 +51,12 @@ class MainActivity : AppCompatActivity() {
     fun async(forecastList: RecyclerView) {
         val result = RequestForecastCommand("94043").execute();
         runOnUiThread {
-            forecastList.adapter = ForecastListAdapter(result)
+            forecastList.adapter = ForecastListAdapter(result, object : ForecastListAdapter.OnItemClickListener {
+                override fun invoke(forecast: Forecast) {
+                    toast(forecast.date)
+                }
+
+            })
         }
     }
 }
-
-private val items = listOf(
-        "Mon 6/23 - Sunny - 31/17",
-        "Tue 6/24 - Foggy - 21/8",
-        "Wed 6/25 - Cloudy - 22/17",
-        "Thurs 6/26 - Rainy - 18/11",
-        "Fri 6/27 - Foggy - 21/10",
-        "Sat 6/28 - TRAPPED IN WEATHERSTATION - 23/18",
-        "Sun 6/29 - Sunny - 20/7"
-)
