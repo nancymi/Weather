@@ -1,6 +1,7 @@
 package nanchen.weather.forecast
 
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import nanchen.weather.domain.ForecastList
@@ -10,14 +11,15 @@ class ForecastListAdapter(val weekForecast: ForecastList) : RecyclerView.Adapter
         return ViewHolder(TextView(parent.context))
     }
 
-    override fun getItemCount(): Int = weekForecast.dailyForecast.size
+    override fun getItemCount(): Int = weekForecast.size()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(weekForecast.dailyForecast[position]) {
+        with(weekForecast[position]) {
             holder.textView.text = "$date - $description - $high/$low"
         }
     }
 
     class ViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
 
+    operator fun ViewGroup.get(position: Int): View = getChildAt(position)
 }
