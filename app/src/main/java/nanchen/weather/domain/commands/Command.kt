@@ -1,23 +1,15 @@
-package nanchen.weather.domain
+package nanchen.weather.domain.commands
 
-import nanchen.weather.data.Forecast
-import nanchen.weather.data.ForecastRequest
-import nanchen.weather.domain.Forecast as ModelForecast
-import nanchen.weather.data.ForecastResult
+import nanchen.weather.data.remote.Forecast
+import nanchen.weather.data.remote.ForecastRequest
+import nanchen.weather.domain.model.Forecast as ModelForecast
+import nanchen.weather.data.remote.ForecastResult
+import nanchen.weather.domain.model.ForecastList
 import java.text.DateFormat
 import java.util.*
 
 public interface Command<T> {
     fun execute(): T
-}
-
-class RequestForecastCommand(val zipCode: String): Command<ForecastList> {
-    override fun execute(): ForecastList {
-        val forecastRequest = ForecastRequest(zipCode)
-        return ForecastDataMapper().convertFromDataModel(
-                forecastRequest.execute())
-    }
-
 }
 
 public class ForecastDataMapper {

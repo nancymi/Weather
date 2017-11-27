@@ -1,4 +1,4 @@
-package nanchen.weather.data
+package others
 
 open class Animal(name: String)
 

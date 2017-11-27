@@ -1,4 +1,4 @@
-package nanchen.weather
+package nanchen.weather.extensions
 
 import android.content.Context
 import android.view.View

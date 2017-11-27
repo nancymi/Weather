@@ -1,16 +1,16 @@
-package nanchen.weather.forecast
+package nanchen.weather.ui.activities
 
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.ViewGroup
 import android.widget.Toast
 import nanchen.weather.R
-import nanchen.weather.data.Person
-import nanchen.weather.domain.Forecast
-import nanchen.weather.domain.RequestForecastCommand
+import others.Person
+import nanchen.weather.domain.model.Forecast
+import nanchen.weather.domain.commands.RequestForecastCommand
+import nanchen.weather.ui.adapters.ForecastListAdapter
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package nanchen.weather.forecast
+package nanchen.weather.ui.adapters
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,9 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import nanchen.weather.R
-import nanchen.weather.ctx
-import nanchen.weather.domain.Forecast
-import nanchen.weather.domain.ForecastList
+import nanchen.weather.extensions.ctx
+import nanchen.weather.domain.model.Forecast
+import nanchen.weather.domain.model.ForecastList
 import org.jetbrains.anko.find
 
 class ForecastListAdapter(val weekForecast: ForecastList,

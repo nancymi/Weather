@@ -1,4 +1,4 @@
-package nanchen.weather.data
+package others
 
 /**
  * //在Kotlin中，如果我们想使用不可变性，我们编码时思考的方式需要有一些改变。
