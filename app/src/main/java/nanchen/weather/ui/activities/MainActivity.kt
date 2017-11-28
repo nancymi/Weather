@@ -1,6 +1,10 @@
 package nanchen.weather.ui.activities
 
+import kotlinx.android.synthetic.main.activity_main.*
+
 import android.content.Context
+import android.graphics.Color
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -10,7 +14,6 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import nanchen.weather.R
 import others.Person
-import nanchen.weather.domain.model.Forecast
 import nanchen.weather.domain.commands.RequestForecastCommand
 import nanchen.weather.ui.adapters.ForecastListAdapter
 import nanchen.weather.domain.model.ForecastList
@@ -18,12 +21,11 @@ import org.jetbrains.anko.coroutines.experimental.bg
 import org.jetbrains.anko.find
 
 class MainActivity : AppCompatActivity() {
-    lateinit var forecastList : RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        forecastList = find(R.id.forecast_list)
-        forecastList.layoutManager = LinearLayoutManager(this)
+        supportsLollipop { window.setStatusBarColor(Color.BLACK) }
+        forecast_list.layoutManager = LinearLayoutManager(this)
         loadForecast()
     }
 
@@ -63,5 +65,11 @@ class MainActivity : AppCompatActivity() {
             toast(it.date)
         }
         forecastListView.adapter = adapter
+    }
+
+    inline fun supportsLollipop(code: () -> Unit) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            code()
+        }
     }
 }
