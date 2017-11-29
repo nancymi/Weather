@@ -13,16 +13,25 @@ class ForecastDbHelper() : ManagedSQLiteOpenHelper(App.instance,
         val instance: ForecastDbHelper by lazy { ForecastDbHelper() }
     }
 
-    override fun onCreate(p0: SQLiteDatabase?) {
+    override fun onCreate(db: SQLiteDatabase) {
         db.createTable(CityForecastTable.NAME, true,
-                Pair(CityForecastTable.ID, INTEGER + PRIMARY_KEY),
-                Pair(CityForecastTable.CITY, TEXT),
-                Pair(CityForecastTable.COUNTRY, TEXT))
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                CityForecastTable.ID to INTEGER + PRIMARY_KEY,
+                CityForecastTable.CITY to TEXT,
+                CityForecastTable.COUNTRY to TEXT)
+        db.createTable(DayForecastTable.NAME, true,
+                DayForecastTable.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
+                DayForecastTable.DATE to INTEGER,
+                DayForecastTable.DESCRIPTION to TEXT,
+                DayForecastTable.HIGH to INTEGER,
+                DayForecastTable.LOW to INTEGER,
+                DayForecastTable.ICON_URL to TEXT,
+                DayForecastTable.CITY_ID to INTEGER)
     }
 
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
+        db.dropTable(CityForecastTable.NAME, true)
+        db.dropTable(DayForecastTable.NAME, true)
+        onCreate(db)
     }
 
 }
