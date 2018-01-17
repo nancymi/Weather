@@ -13,7 +13,7 @@ class Delegate<T> : ReadWriteProperty<Any?, T> {
     }
 }
 
-private class NotNullSingleValueVar<T>() : ReadWriteProperty<Any?, T> {
+private class NotNullSingleValueVar<T> : ReadWriteProperty<Any?, T> {
     private var value: T? = null
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         this.value = if (this.value == null) value
