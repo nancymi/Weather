@@ -7,11 +7,12 @@ import nanchen.weather.domain.model.ForecastList
 
 class ForecastServer(private val dataMapper: ServerDataMapper = ServerDataMapper(),
                      private val forecastLocal: ForecastLocal = ForecastLocal()): ForecastDataSource {
-    override fun requestDayForecast(id: Long): Forecast? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun requestDayForecast(id: Long) = throw UnsupportedOperationException()
 
     override fun requestForecastByZipCode(zipCode: Long, date: Long): ForecastList? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val result = ForecastByZipCodeRequest(zipCode).execute()
+        val converted = dataMapper.convertToDomain(zipCode, result)
+        forecastLocal.saveForecast(converted)
+        return forecastLocal.requestForecastByZipCode(zipCode, date)
     }
 }

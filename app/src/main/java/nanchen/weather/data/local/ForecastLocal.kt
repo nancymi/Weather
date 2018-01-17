@@ -13,4 +13,8 @@ class ForecastLocal(private val forecastDbHelper: ForecastDbHelper = ForecastDbH
     override fun requestForecastByZipCode(zipCode: Long, date: Long): ForecastList? {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    fun saveForecast(converted: ForecastList) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

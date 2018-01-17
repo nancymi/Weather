@@ -7,16 +7,15 @@ import java.text.DateFormat
 import java.util.*
 
 class ServerDataMapper {
-    fun convertFromDataModel(forecast: ForecastResult): ForecastList {
-        return ForecastList(forecast.city.name, forecast.city.country,
-                convertForecastListToDomain(forecast.list))
+    fun convertToDomain(zipCode: Long, forecastResult: ForecastResult) = with(forecastResult) {
+        ForecastList(zipCode, city.name, city.country, convertForecastListToDomain(list))
     }
 
-    private fun convertForecastListToDomain(list: List<Forecast>): List<nanchen.weather.domain.model.Forecast> {
+    fun convertForecastListToDomain(list: List<Forecast>): List<nanchen.weather.domain.model.Forecast> {
         return list.map { convertForecastItemToDomain(it) }
     }
 
-    private fun convertForecastItemToDomain(forecast: Forecast): nanchen.weather.domain.model.Forecast {
+    fun convertForecastItemToDomain(forecast: Forecast): nanchen.weather.domain.model.Forecast {
         return nanchen.weather.domain.model.Forecast(convertDate(forecast.dt),
                 forecast.weather[0].description,
                 forecast.temp.max.toInt(),
