@@ -22,7 +22,6 @@ class ForecastListAdapter(val weekForecast: ForecastList,
                 .inflate(R.layout.item_forecast, parent, false)
         return ViewHolder(view, itemClick)
     }
-
     override fun getItemCount(): Int = weekForecast.size()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

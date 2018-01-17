@@ -33,5 +33,4 @@ class ForecastDbHelper() : ManagedSQLiteOpenHelper(App.instance,
         db.dropTable(DayForecastTable.NAME, true)
         onCreate(db)
     }
-
 }
