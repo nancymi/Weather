@@ -1,10 +1,12 @@
 package nanchen.weather.data.remote
 
+import nanchen.weather.data.remote.model.Forecast
+import nanchen.weather.data.remote.model.ForecastResult
 import nanchen.weather.domain.model.ForecastList
 import java.text.DateFormat
 import java.util.*
 
-class ForecastDataMapper {
+class ServerDataMapper {
     fun convertFromDataModel(forecast: ForecastResult): ForecastList {
         return ForecastList(forecast.city.name, forecast.city.country,
                 convertForecastListToDomain(forecast.list))
