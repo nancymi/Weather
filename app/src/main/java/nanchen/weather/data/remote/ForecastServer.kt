@@ -2,7 +2,6 @@ package nanchen.weather.data.remote
 
 import nanchen.weather.data.local.ForecastLocal
 import nanchen.weather.domain.datasource.ForecastDataSource
-import nanchen.weather.domain.model.Forecast
 import nanchen.weather.domain.model.ForecastList
 
 class ForecastServer(private val dataMapper: ServerDataMapper = ServerDataMapper(),
