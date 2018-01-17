@@ -4,7 +4,7 @@ import nanchen.weather.domain.model.ForecastList
 import java.text.DateFormat
 import java.util.*
 
-public class ForecastDataMapper {
+class ForecastDataMapper {
     fun convertFromDataModel(forecast: ForecastResult): ForecastList {
         return ForecastList(forecast.city.name, forecast.city.country,
                 convertForecastListToDomain(forecast.list))
