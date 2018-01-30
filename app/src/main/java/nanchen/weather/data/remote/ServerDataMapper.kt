@@ -1,7 +1,8 @@
 package nanchen.weather.data.remote
 
-import nanchen.weather.data.remote.model.Forecast
+import nanchen.weather.data.remote.model.Forecast as RemoteForecast
 import nanchen.weather.data.remote.model.ForecastResult
+import nanchen.weather.domain.model.Forecast
 import nanchen.weather.domain.model.ForecastList
 import java.text.DateFormat
 import java.util.*
@@ -11,12 +12,12 @@ class ServerDataMapper {
         ForecastList(zipCode, city.name, city.country, convertForecastListToDomain(list))
     }
 
-    fun convertForecastListToDomain(list: List<Forecast>): List<nanchen.weather.domain.model.Forecast> {
+    fun convertForecastListToDomain(list: List<RemoteForecast>): List<Forecast> {
         return list.map { convertForecastItemToDomain(it) }
     }
 
-    fun convertForecastItemToDomain(forecast: Forecast): nanchen.weather.domain.model.Forecast {
-        return nanchen.weather.domain.model.Forecast(convertDate(forecast.dt),
+    fun convertForecastItemToDomain(forecast: RemoteForecast): Forecast {
+        return Forecast(forecast.dt,
                 forecast.weather[0].description,
                 forecast.temp.max.toInt(),
                 forecast.temp.min.toInt(),
