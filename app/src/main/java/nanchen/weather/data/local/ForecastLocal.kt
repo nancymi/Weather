@@ -1,13 +1,15 @@
 package nanchen.weather.data.local
 
-import android.database.sqlite.SQLiteDatabase
 import nanchen.weather.data.local.model.CityForecast
 import nanchen.weather.data.local.model.DayForecast
 import nanchen.weather.domain.datasource.ForecastDataSource
-import nanchen.weather.domain.model.Forecast
 import nanchen.weather.domain.model.ForecastList
-import org.jetbrains.anko.db.MapRowParser
-import org.jetbrains.anko.db.SelectQueryBuilder
+import nanchen.weather.extensions.byId
+import nanchen.weather.extensions.clear
+import nanchen.weather.extensions.parseList
+import nanchen.weather.extensions.parseOpt
+import nanchen.weather.extensions.toVarargArray
+import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 
 class ForecastLocal(private val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance,
@@ -33,24 +35,14 @@ class ForecastLocal(private val forecastDbHelper: ForecastDbHelper = ForecastDbH
     }
 
     fun saveForecast(converted: ForecastList) = forecastDbHelper.use {
-        //TODO
-    }
+        clear(DayForecastTable.NAME)
+        clear(CityForecastTable.NAME)
 
-    fun <T : Any> SelectQueryBuilder.parseList(
-            parser: (Map<String, Any?>) -> T): List<T> =
-            parseList(object : MapRowParser<T> {
-                override fun parseRow(columns: Map<String, Any?>): T = parser(columns)
-            })
-
-    fun <T : Any> SelectQueryBuilder.parseOpt(
-            parser: (Map<String, Any?>) -> T): T? =
-            parseOpt(object : MapRowParser<T> {
-                override fun parseRow(columns: Map<String, Any?>): T = parser(columns)
-            })
-
-    fun SelectQueryBuilder.byId(id: Long) = whereSimple("_id = ?", id.toString())
-
-    fun SQLiteDatabase.clear(tableName: String) {
-        execSQL("delete from $tableName")
+        with(dataMapper.convertFromDomain(converted)) {
+            insert(CityForecastTable.NAME, *map.toVarargArray())
+            dailyForecast.forEach {
+                insert(DayForecastTable.NAME, *it.map.toVarargArray())
+            }
+        }
     }
 }
