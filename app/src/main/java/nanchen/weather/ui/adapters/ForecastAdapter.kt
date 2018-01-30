@@ -1,9 +1,13 @@
 package nanchen.weather.ui.adapters
 
+import kotlinx.android.synthetic.main.item_forecast.*
+
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_forecast.view.*
 import nanchen.weather.R
@@ -12,7 +16,7 @@ import nanchen.weather.domain.model.Forecast
 import nanchen.weather.domain.model.ForecastList
 
 class ForecastListAdapter(val weekForecast: ForecastList,
-                          val itemClick: OnItemClickListener) : RecyclerView.Adapter<ForecastListAdapter.ViewHolder>() {
+                          val itemClick: (Forecast) -> Unit) : RecyclerView.Adapter<ForecastListAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.ctx)
                 .inflate(R.layout.item_forecast, parent, false)
@@ -26,7 +30,7 @@ class ForecastListAdapter(val weekForecast: ForecastList,
 
     operator fun ViewGroup.get(position: Int): View = getChildAt(position)
 
-    class ViewHolder(view: View, val itemClick: OnItemClickListener) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View, val itemClick: (Forecast) -> Unit) : RecyclerView.ViewHolder(view) {
 
         fun bindForecast(forecast: Forecast) {
             with(forecast) {
@@ -39,8 +43,4 @@ class ForecastListAdapter(val weekForecast: ForecastList,
             }
         }
     }
-}
-
-interface OnItemClickListener {
-    operator fun invoke(forecast: Forecast)
 }
