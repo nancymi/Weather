@@ -6,6 +6,7 @@ import nanchen.weather.domain.model.Forecast
 import nanchen.weather.domain.model.ForecastList
 import java.text.DateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class ServerDataMapper {
     fun convertToDomain(zipCode: Long, forecastResult: ForecastResult) = with(forecastResult) {
@@ -13,11 +14,14 @@ class ServerDataMapper {
     }
 
     fun convertForecastListToDomain(list: List<RemoteForecast>): List<Forecast> {
-        return list.map { convertForecastItemToDomain(it) }
+        return list.mapIndexed { i, forecast ->
+            val dt = Calendar.getInstance().timeInMillis + TimeUnit.DAYS.toMillis(i.toLong())
+            convertForecastItemToDomain(forecast.copy(dt = dt))
+        }
     }
 
     fun convertForecastItemToDomain(forecast: RemoteForecast): Forecast {
-        return Forecast(forecast.id
+        return Forecast(-1,
                 forecast.dt,
                 forecast.weather[0].description,
                 forecast.temp.max.toInt(),
