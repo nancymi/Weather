@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Toast
@@ -19,12 +20,15 @@ import nanchen.weather.ui.adapters.ForecastListAdapter
 import nanchen.weather.domain.model.ForecastList
 import org.jetbrains.anko.coroutines.experimental.bg
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
+import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportsLollipop { window.setStatusBarColor(Color.BLACK) }
+        supportsLollipop { window.statusBarColor = Color.BLACK }
         forecast_list.layoutManager = LinearLayoutManager(this)
         loadForecast()
     }
@@ -56,13 +60,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadForecast() = async(UI) {
-        val result = bg { RequestForecastCommand("Xian,cn").execute() }
-        updateUI(result.await(), forecastList)
+        val result = bg { RequestForecastCommand(234).execute() }
+        updateUI(result.await(), forecast_list)
     }
 
     private fun updateUI(weekForecast: ForecastList, forecastListView: RecyclerView) {
         val adapter = ForecastListAdapter(weekForecast) {
-            toast(it.date)
+            startActivity<DetailActivity>(DetailActivity.ID to it.id,
+                    DetailActivity.CITY_NAME to weekForecast.city)
         }
         forecastListView.adapter = adapter
     }
