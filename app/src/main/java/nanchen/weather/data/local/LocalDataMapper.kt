@@ -12,7 +12,7 @@ class LocalDataMapper {
     }
 
     fun convertDayToDomain(dayForecast: DayForecast) = with(dayForecast) {
-        Forecast(date, description, high, low, iconUrl)
+        Forecast(_id, date, description, high, low, iconUrl)
     }
 
     fun convertFromDomain(forecast: ForecastList): CityForecast = with(forecast) {

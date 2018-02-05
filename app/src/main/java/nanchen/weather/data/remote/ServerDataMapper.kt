@@ -17,7 +17,8 @@ class ServerDataMapper {
     }
 
     fun convertForecastItemToDomain(forecast: RemoteForecast): Forecast {
-        return Forecast(forecast.dt,
+        return Forecast(forecast.id
+                forecast.dt,
                 forecast.weather[0].description,
                 forecast.temp.max.toInt(),
                 forecast.temp.min.toInt(),
